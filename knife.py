@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import Image
+
 class Colour():
     r,g,b = None,None,None
     def setRGB(self,r,g,b):
@@ -11,10 +13,12 @@ class Colour():
     def getCMY():
         return r
     def getComplimentary():
+        None
         #return(b,255-g,r)
     def relativeLuminance():
+        None
     def contrastRatio():
-        
+        None
 
 ## -- stock colours
 BURNTUMBER = Colour()
@@ -47,5 +51,11 @@ class Palette():
         '''most saturated colour in palette'''
     def prime():
         '''colour to be used in most of image'''
-
-
+    def createImage(self):
+        width, height = 400, 200
+        img = Image.new('RGB', (width,height), 'white')
+        pixels = img.load()
+        for x in range(width):
+            for y in range(height):
+                pixels[x,y] = BURNTUMBER.getRGB()
+        img.save('palette.jpg')
