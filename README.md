@@ -1,2 +1,2 @@
 # Knife
-emotive colour palettes
+Colour palettes with an emotional focus

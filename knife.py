@@ -11,7 +11,9 @@ class Colour():
     def getCMY():
         return r
     def getComplimentary():
-        return(b,255-g,r)
+        #return(b,255-g,r)
+    def relativeLuminance():
+    def contrastRatio():
         
 
 ## -- stock colours
