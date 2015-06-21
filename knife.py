@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import Image
+import math
 
 class Colour():
     r,g,b = None,None,None
@@ -63,5 +64,7 @@ class Palette():
         pixels = img.load()
         for x in range(width):
             for y in range(height):
-                pixels[x,y] = self.colours[0].getRGB()
-        img.save('palette.jpg')
+                if self.colours:
+                    index = int(math.floor(x/(float(width)/len(self.colours))))
+                    pixels[x,y] = self.colours[index].getRGB()
+        img.save('palette.png')
