@@ -4,7 +4,7 @@ import Image
 
 class Colour():
     r,g,b = None,None,None
-    def setRGB(self,r,g,b):
+    def setRGB(self,(r,g,b)):
         self.r,self.g,self.b = r,g,b
     def getRGB(self):
         return (self.r,self.g,self.b)
@@ -21,12 +21,17 @@ class Colour():
         None
 
 ## -- stock colours
-BURNTUMBER = Colour()
-BURNTUMBER.setRGB(138,51,36)
-
+stock = {
+        'burntUmber'   : (138,51,36),
+        'burntSienna'  : (233,116,81),
+        };
 
 class Palette():
-    palette = []
+    colours = []
+
+    def addColour(self,col):
+        if isinstance(col,Colour): self.colours.append(col)     
+        else: print "addColour only accepts arguments from the knife.Colour() class"
     # harmonies
     def monochromatic():
         '''palette in a single hue'''
@@ -46,6 +51,7 @@ class Palette():
     def tetratic():
         '''palette from two complimentary pairs'''
         None
+
     # pull colour 
     def spike():
         '''most saturated colour in palette'''
@@ -57,5 +63,5 @@ class Palette():
         pixels = img.load()
         for x in range(width):
             for y in range(height):
-                pixels[x,y] = BURNTUMBER.getRGB()
+                pixels[x,y] = self.colours[0].getRGB()
         img.save('palette.jpg')
