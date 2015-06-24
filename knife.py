@@ -10,19 +10,29 @@ class Colour():
     def setRGB(self,RGB):
         if validRGB(RGB):
             self.r,self.g,self.b = RGB
+            self.h,self.s,self.v = RGBtoHSV(RGB)
     def getRGB(self):
         return (self.r,self.g,self.b)
     def setCMY():
         return r
     def getCMY():
         return r
-    def getComplimentary():
-        None
-        #return(b,255-g,r)
+    def setHSV(self,HSV):
+        if validHSV(HSV):
+            self.h,self.s,self.v = HSV
+            self.r,self.g,self.b = HSVtoRGB(HSV)
+    def getHSV(self):
+        return (self.h,self.s,self.v)
+    def compRGB(self):
+        '''complimentary colour in RGB'''
+        return HSVtoRGB((self.h+180 % 360,self.s,self.v))
     def relativeLuminance():
         None
     def contrastRatio():
         None
+    def cycleHue(self,degrees):
+        '''complimentary colour in RGB'''
+        return HSVtoRGB((self.h+degrees % 360,self.s,self.v))
 
 def validRGB(tup):
     ''' checks that input is of appropriate form for RGB 
@@ -35,7 +45,7 @@ def validRGB(tup):
     '''
     return True if isinstance(tup,tuple) \
             and len(tup)==3 \
-            and all(item >= 0 and item <=255 for item in tup) \
+            and all(item >= 0.0 and item <=255.0 for item in tup) \
             else False
 
 def validHSV(tup):
@@ -74,7 +84,7 @@ def RGBtoHSV(RGB):
     >>> RGBtoHSV((138,51,36))
     (9.0, 74.0, 54.0)
     '''
-    if validHSV(RGB):
+    if validRGB(RGB):
         r,g,b = tuple(float(i) for i in RGB)
         h,s,v = tuple(colorsys.rgb_to_hsv(r/255,g/255,b/255))
         return (round(h*360),round(s*100),round(v*100))
@@ -87,7 +97,7 @@ def RGBtoHSV(RGB):
 ## -- stock colours
 stock = {
         'burntUmber'   : (138,51,36),
-        'burntSienna'  : (233,116,81),
+        'burntSienna'  : (233,116,81)
         };
 
 class Palette():
@@ -100,20 +110,51 @@ class Palette():
     def monochromatic():
         '''palette in a single hue'''
         None
-    def analogous():
+    def analogous(self,col):
         '''palette from adjacent hues'''
-        None
-    def triadic():
+        self.colours = []
+        comp1, comp2 = Colour(), Colour()
+        comp1.setRGB(col.cycleHue(-30))
+        self.colours.append(comp1)
+        self.colours.append(col)
+        comp2.setRGB(col.cycleHue(30))
+        self.colours.append(comp2)
+    def triadic(self,col):
         '''three equidistant colours'''
-        None
-    def complimentary():
+        self.colours = []
+        self.colours.append(col)
+        comp1, comp2 = Colour(), Colour()
+        comp1.setRGB(col.cycleHue(120))
+        self.colours.append(comp1)
+        comp2.setRGB(col.cycleHue(240))
+        self.colours.append(comp2)
+    def complementary(self,col):
         '''palette from complementary pair'''
-        None
-    def splitComplimentary():
+        self.colours = []
+        self.colours.append(col)
+        comp = Colour()
+        comp.setRGB(col.cycleHue(180))
+        self.colours.append(comp)
+    def splitComplementary(self,col):
         '''palette from complementary end extended'''
-        None
-    def tetradic():
+        self.colours = []
+        comp1, comp2 = Colour(), Colour()
+        comp1.setRGB(col.cycleHue(150))
+        self.colours.append(comp1)
+        self.colours.append(col)
+        comp2.setRGB(col.cycleHue(210))
+        self.colours.append(comp2)
+    def tetradic(self,col):
         '''palette from two complimentary pairs'''
+        self.colours = []
+        self.colours.append(col)
+        comp1, comp2, comp3 = Colour(), Colour(), Colour()
+        comp1.setRGB(col.cycleHue(60))
+        self.colours.append(comp1)
+        comp2.setRGB(col.cycleHue(180))
+        self.colours.append(comp2)
+        comp3.setRGB(col.cycleHue(240))
+        self.colours.append(comp3)
         None
 
     # pull colour 
@@ -129,7 +170,7 @@ class Palette():
             for y in range(height):
                 if self.colours:
                     index = int(math.floor(x/(float(width)/len(self.colours))))
-                    pixels[x,y] = self.colours[index].getRGB()
+                    pixels[x,y] = tuple(int(i) for i in self.colours[index].getRGB())
         img.save('palette.png')
 
 
