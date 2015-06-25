@@ -5,7 +5,7 @@ Colour palettes with an emotional focus
 ```python
 >>> import knife
 ```
-
+###### The Colour() class
 Create a new colour
 ```python
 >>> col = knife.Colour()
@@ -14,21 +14,33 @@ Create a new colour
 Colour can be set by RGB or HSV
 ```python
 # set col to red 
->>> col.setRGB(255,0,0)
+>>> col.setRGB((255,0,0))
 # is equivalent to:
->>> col.setHSV(0,100,100)
+>>> col.setHSV((0,100,100))
 ```
 
 Colour values for RGB or HSV can be accessed regardless of how the colour was set
 ```python
->>> col.setHSV(0,100,100)
+>>> col.setHSV((0,100,100))
 >>> col.getRGB()
 (255, 0, 0)
 >>> col.r
 255
 ```
 
+###### Stock colours
+The library comes with a set of RGB values for useful colours
+```python
+# get list of stock colours
+>>> knife.stock.keys()
+# get RGB tuple for burntUmber
+>>> knife.stock['burntUmber']
+(138, 51, 36)
+>>> col.setRGB(knife.stock['burntUmber'])
+```
 
+
+###### The Palette() class
 Palettes can be created from colours
 ```python
 >>> pal = knife.Palette()
@@ -54,5 +66,20 @@ To view the created palette use createImage()
 ```python
 >>> pal.createImage()
 ```
+
+###### Basic Example
+```python
+import knife
+
+col = knife.Colour()
+col.setRGB(knife.stock['burntUmber'])
+
+pal = knife.Palette()
+pal.analogous(col)
+pal.createImage()
+```
+
+Output:
+![palette](https://cloud.githubusercontent.com/assets/5771172/8350803/fc261f96-1b6b-11e5-8420-de8ecf6288b2.png)
 
 ### Testing with doctest
