@@ -1,4 +1,4 @@
-# Knife
+# Knife!
 Colour palettes with an emotional focus. This project is in very early development. Colour harmonies based on the twelve spoke colour wheel.
 
 ### How to use
@@ -88,3 +88,13 @@ Output:
 
 ### Testing with doctest
 The module can be error tested by running `python knife.py`
+
+### Colour harmonies
+harmony | description
+------------- | -------------
+monochromatic(col) | palette from a single hue
+analogous(col) | palette from colours adjacent on the twelve spoke colour wheel
+triadic(col) | palette from three hues equally spaced around the colour wheel
+complementary(col) | palette from opposite hues
+splitComplementary(col) | palette from two hues adjaced to the input colour's complement
+tetradic(col) | palette from two complementary pairs
