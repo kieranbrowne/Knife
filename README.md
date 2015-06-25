@@ -1,7 +1,8 @@
 # Knife
-Colour palettes with an emotional focus
+Colour palettes with an emotional focus. This project is in very early development. Colour harmonies based on the twelve spoke colour wheel.
 
 ### How to use
+Import the module
 ```python
 >>> import knife
 ```
@@ -71,15 +72,19 @@ To view the created palette use createImage()
 ```python
 import knife
 
-col = knife.Colour()
-col.setRGB(knife.stock['burntUmber'])
+col = knife.Colour() # create colour
+col.setRGB(knife.stock['burntSienna'])
 
-pal = knife.Palette()
-pal.analogous(col)
+pal = knife.Palette() # create palette
+# create palette from analogous colour harmony
+pal.analogous(col) 
+# export colour palette to `palette.png`
 pal.createImage()
 ```
 
 Output:
+
 ![palette](https://cloud.githubusercontent.com/assets/5771172/8350803/fc261f96-1b6b-11e5-8420-de8ecf6288b2.png)
 
 ### Testing with doctest
+The module can be error tested by running `python knife.py`
