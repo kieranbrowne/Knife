@@ -1,4 +1,7 @@
 # Knife!
+
+![knife_logo svg 2015_06_25_21_54_34 0](https://cloud.githubusercontent.com/assets/5771172/8354039/0cfa2468-1b88-11e5-99b4-ff9a59bdab93.png)
+
 Colour palettes with an emotional focus. This project is in very early development. Colour harmonies based on the twelve spoke colour wheel.
 
 ### How to use
