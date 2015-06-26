@@ -35,7 +35,7 @@ Colour values for RGB or HSV can be accessed regardless of how the colour was se
 (255, 0, 0)
 # get CMYK black value
 >>> col.k
-255
+0
 ```
 
 ###### Stock colours
@@ -70,6 +70,11 @@ Their values can be accessed and changed using the same fuctions as the Colour c
 ```python
 >>> pal.colours[0].getRGB()
 (255, 0, 0)
+```
+RGB, HSV or CMYK values for the `colours` list can be accessed as follows
+```python
+>>> pal.getHSVs()
+[(0, 100, 100), (30, 100, 100), (60, 100, 100)]
 ```
 
 To view the created palette use createImage()

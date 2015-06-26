@@ -24,7 +24,7 @@ class Colour():
             self.c,self.m,self.y,self.k = CMYK
             self.r,self.g,self.b = CMYKtoRGB(CMYK)
             self.h,self.s,self.v = RGBtoHSV(CMYKtoRGB(CMYK))
-    def getCMYK():
+    def getCMYK(self):
         return (self.c,self.m,self.y,self,k)
     def setHSV(self,HSV):
         if validHSV(HSV):
@@ -181,12 +181,15 @@ stock = {# colour name  : ( r , g , b )
 
 
 ################## Palette class ##################
+
 class Palette():
     colours = []
 
     def addColour(self,col):
         if isinstance(col,Colour): self.colours.append(col)     
-        else: print "addColour only accepts arguments from the knife.Colour() class"
+        else: print "addColour only accepts arguments from \
+                the knife.Colour() class"
+
     # harmonies
     def monochromatic():
         '''palette in a single hue'''
@@ -238,7 +241,14 @@ class Palette():
         self.colours.append(comp3)
         None
 
-    # pull colour 
+    # colour lists
+    def getRGBs(self):
+        return [c.getRGB() for c in self.colours]
+    def getHSVs(self):
+        return [c.getHSV() for c in self.colours]
+    def getCMYKs(self):
+        return [c.getCMYK() for c in self.colours]
+    # pull colour
     def spike():
         '''most saturated colour in palette'''
     def prime():
@@ -251,7 +261,7 @@ class Palette():
             for y in range(height):
                 if self.colours:
                     index = int(x/(float(width)/len(self.colours)))
-                    pixels[x,y] = tuple(i for i in self.colours[index].getRGB())
+                    pixels[x,y] = self.getRGBs()[index]
         img.save('palette.png')
 
 
