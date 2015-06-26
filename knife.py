@@ -5,23 +5,32 @@ import colorsys
 #import math
 
 ################## Colour class ##################
+
 class Colour():
-    r,g,b = None,None,None
-    h,s,v = None,None,None
+
+    r,g,b   = None,None,None
+    h,s,v   = None,None,None
+    c,m,y,k = None,None,None,None
+
     def setRGB(self,RGB):
         if validRGB(RGB):
             self.r,self.g,self.b = RGB
             self.h,self.s,self.v = RGBtoHSV(RGB)
+            self.c,self.m,self.y,self.k = RGBtoCMYK(RGB)
     def getRGB(self):
         return (self.r,self.g,self.b)
-    def setCMYK():
-        return r
+    def setCMYK(self,CMYK):
+        if validCMYK(CMYK):
+            self.c,self.m,self.y,self.k = CMYK
+            self.r,self.g,self.b = CMYKtoRGB(CMYK)
+            self.h,self.s,self.v = RGBtoHSV(CMYKtoRGB(CMYK))
     def getCMYK():
-        return r
+        return (self.c,self.m,self.y,self,k)
     def setHSV(self,HSV):
         if validHSV(HSV):
             self.h,self.s,self.v = HSV
             self.r,self.g,self.b = HSVtoRGB(HSV)
+            self.c,self.m,self.y,self.k = RGBtoCMYK(HSVtoRGB(HSV))
     def getHSV(self):
         return (self.h,self.s,self.v)
     def compRGB(self):
@@ -134,13 +143,16 @@ def RGBtoCMYK(RGB):
 def CMYKtoRGB(CMYK):
     ''' colour conversion 
     pure red and burnt umber:
-    >>> CMYKtoRGB((255,0,0))
-    (0.0, 100.0, 100.0)
-    >>> CMYKtoRGB((138,51,36))
-    (9.0, 74.0, 54.0)
+    >>> CMYKtoRGB((0,100,100,0))
+    (255, 0, 0)
+    >>> CMYKtoRGB((0,63,74,46))
+    (138, 51, 36)
     '''
     if validCMYK(CMYK):
-        r,g,b = (float(i) for i in RGB)
+        Kdecimal = float(CMYK[3])/100
+        CMYdecimal = (float(i)/100 for i in CMYK[0:3])
+        r,g,b = (int(round((1.0-Kdecimal)*(1.0-i)*255)) for i in CMYdecimal)
+        return (r,g,b)
     else:
         print "invalid CMYK tuple"
         return None

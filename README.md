@@ -16,20 +16,25 @@ Create a new colour
 >>> col = knife.Colour()
 ```
 
-Colour can be set by RGB or HSV
+Colour can be set by RGB, HSV or CMYK
 ```python
 # set col to red 
 >>> col.setRGB((255,0,0))
 # is equivalent to:
 >>> col.setHSV((0,100,100))
+# is equivalent to:
+>>> col.setCMYK((0,100,100,0))
 ```
 
 Colour values for RGB or HSV can be accessed regardless of how the colour was set
 ```python
+# set col to red using HSV tuple
 >>> col.setHSV((0,100,100))
+# get RGB tuple
 >>> col.getRGB()
 (255, 0, 0)
->>> col.r
+# get CMYK black value
+>>> col.k
 255
 ```
 
