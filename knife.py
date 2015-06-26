@@ -148,9 +148,23 @@ def CMYKtoRGB(CMYK):
   
     
 ################## stock colours ##################
-stock = {
-        'burnt umber'   : (138,51,36),
-        'burnt sienna'  : (233,116,81)
+
+stock = {# colour name  : ( r , g , b )
+        'azure'         : (0  ,127,255),
+        'burgundy'      : (128,0  ,32 ),
+        'burnt sienna'  : (233,116,81 ),
+        'burnt umber'   : (138,51 ,36 ),
+        'cadmium green' : (0  ,107,60 ),
+        'cadmium orange': (237,135,45 ),
+        'cadmium red'   : (227,0  ,34 ),
+        'cadmium yellow': (255,246,0  ),
+        'canary yellow' : (255,239,0  ),
+        'venetian red'  : (200,8  ,21 ),
+        'wheat'         : (245,222,179),
+        'white'         : (255,255,255),
+        'white smoke'   : (245,245,245),
+        'wine'          : (114,47 ,55 ),
+        'yale blue'     : (15 ,77 ,146),
         };
 
 
