@@ -2,8 +2,9 @@
 
 import Image
 import colorsys
-import math
+#import math
 
+################## Colour class ##################
 class Colour():
     r,g,b = None,None,None
     h,s,v = None,None,None
@@ -13,9 +14,9 @@ class Colour():
             self.h,self.s,self.v = RGBtoHSV(RGB)
     def getRGB(self):
         return (self.r,self.g,self.b)
-    def setCMY():
+    def setCMYK():
         return r
-    def getCMY():
+    def getCMYK():
         return r
     def setHSV(self,HSV):
         if validHSV(HSV):
@@ -34,6 +35,7 @@ class Colour():
         '''complimentary colour in RGB'''
         return HSVtoRGB((self.h+degrees % 360,self.s,self.v))
 
+################## colour checks ##################
 def validRGB(tup):
     ''' checks that input is of appropriate form for RGB 
     >>> validRGB((255,0,100))
@@ -45,7 +47,7 @@ def validRGB(tup):
     '''
     return True if isinstance(tup,tuple) \
             and len(tup)==3 \
-            and all(item >= 0.0 and item <=255.0 for item in tup) \
+            and all(item >= 0 and item <=255 for item in tup) \
             else False
 
 def validHSV(tup):
@@ -61,45 +63,98 @@ def validHSV(tup):
             and all(item >= 0 and item <=100 for item in tup[1:2]) \
             else False
 
+def validCMYK(tup):
+    ''' checks that input is of appropriate form for CMYK 
+    >>> validCMYK((0,56,10,100))
+    True
+    >>> validCMYK((80,20,10))
+    False
+    >>> validCMYK((-1,56,100,0))
+    False
+    '''
+    return True if isinstance(tup,tuple) \
+            and len(tup)==4 \
+            and all(item >= 0 and item <=100 for item in tup) \
+            else False
+
+
+################## colour conversions ##################
 def HSVtoRGB(HSV):
     ''' colour conversion 
     pure red and burnt umber:
     >>> HSVtoRGB((0,100,100))
-    (255.0, 0.0, 0.0)
+    (255, 0, 0)
     >>> HSVtoRGB((9,74,54))
-    (138.0, 51.0, 36.0)
+    (138, 51, 36)
     '''
     if validHSV(HSV):
-        h,s,v = tuple(float(i) for i in HSV)
-        r,g,b = tuple(colorsys.hsv_to_rgb(h/360,s/100,v/100))
-        return (round(r*255),round(g*255),round(b*255))
+        h,s,v = (float(i) for i in HSV)
+        r,g,b = (int(round(i*255)) for i in colorsys.hsv_to_rgb(h/360,s/100,v/100))
+        return (r,g,b)
     else:
-        return "fail :("
+        print "invalid HSV tuple"
+        return None
 
 def RGBtoHSV(RGB):
     ''' colour conversion 
     pure red and burnt umber:
     >>> RGBtoHSV((255,0,0))
-    (0.0, 100.0, 100.0)
+    (0, 100, 100)
     >>> RGBtoHSV((138,51,36))
-    (9.0, 74.0, 54.0)
+    (9, 74, 54)
     '''
     if validRGB(RGB):
-        r,g,b = tuple(float(i) for i in RGB)
-        h,s,v = tuple(colorsys.rgb_to_hsv(r/255,g/255,b/255))
-        return (round(h*360),round(s*100),round(v*100))
+        r,g,b = (float(i) for i in RGB)
+        HSV = (colorsys.rgb_to_hsv(r/255,g/255,b/255))
+        mult = (360,100,100)
+        h,s,v = (int(round(HSV[int(i)]*mult[int(i)])) for i in range(3))
+        return (h,s,v)
     else:
-        return "fail :("
+        print "invalid RGB tuple"
+        return None
 
-    
-    
+def RGBtoCMYK(RGB):
+    ''' colour conversion 
+    pure red and burnt umber:
+    >>> RGBtoCMYK((255,0,0))
+    (0, 100, 100, 0)
+    >>> RGBtoCMYK((138,51,36))
+    (0, 63, 74, 46)
+    '''
+    if validRGB(RGB):
+        RGBpercent = tuple(float(i)/2.55 for i in RGB)
+        k = int(round(100 - max(RGBpercent)))
+        c,m,y = (int(round((100-RGBpercent[i] - k)/(100-k)*100)) \
+                for i in range(3))
+        return (c,m,y,k)
+    else:
+        print "invalid RGB tuple"
+        return None
 
-## -- stock colours
+def CMYKtoRGB(CMYK):
+    ''' colour conversion 
+    pure red and burnt umber:
+    >>> CMYKtoRGB((255,0,0))
+    (0.0, 100.0, 100.0)
+    >>> CMYKtoRGB((138,51,36))
+    (9.0, 74.0, 54.0)
+    '''
+    if validCMYK(CMYK):
+        r,g,b = (float(i) for i in RGB)
+    else:
+        print "invalid CMYK tuple"
+        return None
+
+  
+    
+################## stock colours ##################
 stock = {
-        'burntUmber'   : (138,51,36),
-        'burntSienna'  : (233,116,81)
+        'burnt umber'   : (138,51,36),
+        'burnt sienna'  : (233,116,81)
         };
 
+
+################## Palette class ##################
 class Palette():
     colours = []
 
@@ -169,9 +224,10 @@ class Palette():
         for x in range(width):
             for y in range(height):
                 if self.colours:
-                    index = int(math.floor(x/(float(width)/len(self.colours))))
-                    pixels[x,y] = tuple(int(i) for i in self.colours[index].getRGB())
+                    index = int(x/(float(width)/len(self.colours)))
+                    pixels[x,y] = tuple(i for i in self.colours[index].getRGB())
         img.save('palette.png')
+
 
 
 ## -- test function when run as `python knife.py`

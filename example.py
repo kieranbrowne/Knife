@@ -3,14 +3,14 @@ import knife
 # create new colour
 col = knife.Colour()
 col.setRGB((255,0,0)) # set col to red
-col.setRGB(knife.stock['burntUmber'])
+col.setRGB(knife.stock['burnt umber'])
 print "burnt umber's complimentary in RGB"
 print col.compRGB()
 
 # create colour from stockColour
 print knife.stock.keys() # print all stock colours
-print knife.stock['burntSienna']
-col.setRGB(knife.stock['burntSienna'])
+print knife.stock['burnt sienna']
+col.setRGB(knife.stock['burnt sienna'])
 
 # create new palette
 pal = knife.Palette()

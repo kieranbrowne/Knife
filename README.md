@@ -38,10 +38,10 @@ The library comes with a set of RGB values for useful colours
 ```python
 # get list of stock colours
 >>> knife.stock.keys()
-# get RGB tuple for burntUmber
->>> knife.stock['burntUmber']
+# get RGB tuple for burnt umber
+>>> knife.stock['burnt umber']
 (138, 51, 36)
->>> col.setRGB(knife.stock['burntUmber'])
+>>> col.setRGB(knife.stock['burnt umber'])
 ```
 
 
@@ -77,7 +77,7 @@ To view the created palette use createImage()
 import knife
 
 col = knife.Colour() # create colour
-col.setRGB(knife.stock['burntSienna'])
+col.setRGB(knife.stock['burnt sienna'])
 
 pal = knife.Palette() # create palette
 # create palette from analogous colour harmony
