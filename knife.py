@@ -161,23 +161,34 @@ def CMYKtoRGB(CMYK):
     
 ################## stock colours ##################
 
-stock = {# colour name  : ( r , g , b )
-        'azure'         : (0  ,127,255),
-        'burgundy'      : (128,0  ,32 ),
-        'burnt sienna'  : (233,116,81 ),
-        'burnt umber'   : (138,51 ,36 ),
-        'cadmium green' : (0  ,107,60 ),
-        'cadmium orange': (237,135,45 ),
-        'cadmium red'   : (227,0  ,34 ),
-        'cadmium yellow': (255,246,0  ),
-        'canary yellow' : (255,239,0  ),
-        'venetian red'  : (200,8  ,21 ),
-        'wheat'         : (245,222,179),
-        'white'         : (255,255,255),
-        'white smoke'   : (245,245,245),
-        'wine'          : (114,47 ,55 ),
-        'yale blue'     : (15 ,77 ,146),
+stock = {# colour name           : ( r , g , b ),
+        'azure'                  : (0  ,127,255),
+        'burgundy'               : (128,0  ,32 ),
+        'burnt sienna'           : (233,116,81 ),
+        'burnt umber'            : (138,51 ,36 ),
+        'cadmium green'          : (0  ,107,60 ),
+        'cadmium green pale'     : (186,221,141),
+        'cadmium orange'         : (237,135,45 ),
+        'cadmium red'            : (227,0  ,34 ),
+        'cadmium scarlet'        : (203,51 ,42 ),
+        'cadmium yellow medium'  : (246,193,1  ),
+        'cadmium yellow pale'    : (251,223,0  ),
+        'canary yellow'          : (255,239,0  ),
+        'dioxazine violet'       : (50 ,16 , 66),
+        'mars black'             : (13 ,14 ,16 ),
+        'quindcridone rose'      : (149,30 ,50 ),
+        'titanium white'         : (244,237,237),
+        'thalo blue'             : (1  ,73 ,147),
+        'thalo green'            : (3  ,57 ,57 ),
+        'ultramarine blue'       : (35 ,22 ,92 ),
+        'venetian red'           : (200,8  ,21 ),
+        'wheat'                  : (245,222,179),
+        'white'                  : (255,255,255),
+        'white smoke'            : (245,245,245),
+        'wine'                   : (114,47 ,55 ),
+        'yale blue'              : (15 ,77 ,146),
         };
+
 
 
 ################## Palette class ##################
