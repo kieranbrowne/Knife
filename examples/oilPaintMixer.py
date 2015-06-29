@@ -17,15 +17,43 @@ def getHues(colourNames):
     return [knife.RGBtoHSV(RGB)[0] for RGB in [knife.stock[name] for name in colourNames]]
 
 def getMixingInstructions(desiredHue,availableHues):
-    if desiredHue in zip(*availableHues)[1]:
-        index = zip(*availableHues)[1].index(desiredHue)
-        return "just use " + str(zip(*availableHues)[0][index])
-    else:
-        mix = []
+    closest = closestHues(desiredHue,availableHues)
+    if len(closest)==1:
+        return 'just use ' + getPaintByHue(closest[0],)
+       
 
+def closestHues(desiredHue,hues):
+    answer = []
+    if desiredHue in hues:
+        answer.append(desiredHue)
+    else:
+        upper = desiredHue
+        while upper not in hues:
+            upper = (upper+1) % 360
+        answer.append(upper)
+        lower = desiredHue
+        while lower not in hues:
+            lower = (lower+1) % 360
+        answer.append(lower)
+    return answer
+
+def getPaintByHue(hue,hues):
+    index = zip(*hues).index(hue)
+    return zip(*availableHues)[0][index]
+    
+def closestDegree(search,direction,options):
+    i = int(search)
+    if   direction.lower() == 'cw' or 'clockwise':
+        while i not in options:
+            i = (i+1) % 360
+    elif direction.lower() == 'ccw' or 'counterclockwise' \
+            or 'acw' or 'anticlockwise':
+        while i not in options:
+            i = (i-1) % 360
+    return i
 
 
 if all(colour in knife.stock.keys() for colour in oils):
     #print zip(oils,getHues(oils))
     hue = input('What hue would you like to create?: ')
-    print getMixingInstructions(hue,zip(oils,getHues(oils)))
+    print getMixingInstructions(hue,getHues(oils))
