@@ -3,7 +3,15 @@ module Knife
 , getRGB
 , getHSV
 , getCMYK
-, getHue
+, red
+, green
+, blue
+, hue
+, saturation
+, value
+, monochromatic
+, analogous
+, complementary
 , decimal
 ) where
 
@@ -48,18 +56,24 @@ getCMYK (RGB r g b) =
     in (c,m,y,k)
 getCMYK (CMYK c m y k) = (c,m,y,k)
 
-getRed :: Colour -> Float
-getRed col = r
+red :: Colour -> Float
+red col = r
     where (r,_,_) = (getRGB col)
-getGreen :: Colour -> Float
-getGreen col = g
+green :: Colour -> Float
+green col = g
     where (_,g,_) = (getRGB col)
-getBlue :: Colour -> Float
-getBlue col = b
+blue :: Colour -> Float
+blue col = b
     where (_,_,b) = (getRGB col)
-getHue :: Colour -> Float
-getHue col = h
+hue :: Colour -> Float
+hue col = h
     where (h,_,_) = (getHSV col)
+saturation :: Colour -> Float
+saturation col = s
+    where (_,s,_) = (getHSV col)
+value :: Colour -> Float
+value col = v
+    where (_,_,v) = (getHSV col)
 
 -- | utils
 
@@ -79,7 +93,17 @@ type Palette = [Colour]
 analogous :: Colour -> Palette
 analogous col = colours
     where (h,s,v) = getHSV col
-          left = HSV (rotate h (-30)) 0 0 
-          right = HSV (rotate h 30) 0 0 
+          left = HSV (rotate h (-30)) s v 
+          right = HSV (rotate h 30) s v 
           colours = [left, col, right]
 
+complementary :: Colour -> Palette
+complementary col = colours
+    where (h,s,v) = getHSV col
+          comp = HSV (rotate (hue col) 180) s v
+          colours = [col,comp]
+
+monochromatic :: Colour -> Palette
+monochromatic col = colours
+    where (h,s,v) = getHSV col
+          colours = [col,col]
