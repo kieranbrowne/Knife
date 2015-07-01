@@ -7,7 +7,7 @@ module Knife
 , monochromatic , analogous , complementary
 , splitComplementary, triadic, tetradic
 , decimal, rotate, degreesDiff
-, stock, find, keys, values
+, stock, getStock, find, keys, values
 ) where
 
 import Data.Fixed

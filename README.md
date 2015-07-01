@@ -44,9 +44,16 @@ The `stock` associated list comes with a series of common colours and their HSV 
 ```haskell
 ghci> analogous $ getStock "burnt sienna" 
 [HSV 344 65 91,HSV 14 65 91,HSV 44 65 91]
-
-
 ```
+
+### Very Basic Example
+`basicExample.hs`
+```haskell```
+Shell command:
+```
+runhaskell basicExample.hs | ./render.py
+```
+Output:
 
 ![palette](https://cloud.githubusercontent.com/assets/5771172/8350803/fc261f96-1b6b-11e5-8420-de8ecf6288b2.png)
 
