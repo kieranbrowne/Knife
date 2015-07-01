@@ -135,7 +135,7 @@ rotate initial diff = newDegrees
 -- | Palettes
 type Palette = [Colour]
 
--- | colour harmonies
+-- | Palettes from colour harmonies
 monochromatic :: Colour -> Palette
 monochromatic col = colours
     where colours = [col,col]
@@ -171,3 +171,8 @@ tetradic col1 col2 = colours
 -- | mod palettes
 moody :: Palette -> Palette
 moody [] = []
+
+
+-- | Stock Colours
+stock :: [(String,Colour)]
+stock = [("burnt umber",RGB 138 51 36),("burnt sienna",RGB 233 116 81)]
