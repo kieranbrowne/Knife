@@ -40,7 +40,12 @@ ghci> map getRGB (analogous $ HSV 0 50 100)
 [(255.0,127.5,191.25),(255.0,127.5,127.5),(255.0,191.25,127.5)]
 ```
 
+The `stock` associated list comes with a series of common colours and their HSV values. These can be piped directly into any other fuction using the `getStock` function
+```haskell
+ghci> analogous $ getStock "burnt sienna" 
+[HSV 343.8 65.2 91.4,HSV 13.8 65.2 91.4,HSV 43.8 65.2 91.4]
 
+```
 
 ![palette](https://cloud.githubusercontent.com/assets/5771172/8350803/fc261f96-1b6b-11e5-8420-de8ecf6288b2.png)
 
@@ -53,4 +58,4 @@ analogous col  | palette from colours adjacent on the twelve spoke colour wheel
 triadic col | palette from three hues equally spaced around the colour wheel
 complementary col  | palette from opposite hues
 splitComplementary col  | palette from two hues adjaced to the input colour's complement
-tetradic col  | palette from two complementary pairs
+tetradic col1 col2  | palette from two complementary pairs

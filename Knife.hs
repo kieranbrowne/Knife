@@ -6,10 +6,13 @@ module Knife
 , hue , saturation , value
 , monochromatic , analogous , complementary
 , splitComplementary, triadic, tetradic
-, decimal, rotate
+, decimal, rotate, degreesDiff
+, stock, find, keys, values
 ) where
 
 import Data.Fixed
+import Data.Map (Map)
+import qualified Data.Map.Lazy as Map
 
 data Colour = RGB Float Float Float | HSV Float Float Float | CMYK Float Float Float Float deriving (Show)
 
@@ -132,6 +135,11 @@ rotate :: Float -> Float -> Float
 rotate initial diff = newDegrees
     where newDegrees = (initial + diff) `mod'` 360.0
 
+degreesDiff :: Float -> Float -> Float
+degreesDiff a b = minimum d
+    where d = map abs ops
+          ops = [a-b, a-b-360, a-b+360]
+
 -- | Palettes
 type Palette = [Colour]
 
@@ -169,10 +177,23 @@ tetradic col1 col2 = colours
     where colours = complementary col1 ++ complementary col2
 
 -- | mod palettes
-moody :: Palette -> Palette
-moody [] = []
+-- moody :: Palette -> Palette
+--moody = []
+
 
 
 -- | Stock Colours
-stock :: [(String,Colour)]
-stock = [("burnt umber",RGB 138 51 36),("burnt sienna",RGB 233 116 81)]
+stock = 
+    [("burnt sienna",HSV 13.8 65.2 91.4)
+    ,("burnt umber",HSV 8.8 73.9 54.1)]
+
+getStock :: String -> Colour
+getStock name 
+        | Map.member name (Map.fromList stock) = find name stock
+        | otherwise = RGB 0 0 0
+
+keys map = [k | (k,v) <- map]
+values map = [v | (k,v) <- map]
+
+find :: (Eq k) => k -> [(k,v)] -> v
+find key xs = snd . head . filter (\(k,v) -> key == k) $ xs

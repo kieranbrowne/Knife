@@ -1,12 +1,18 @@
+-- | this example is a simple oil paint mixer
+
 import Knife
 
 main :: IO ()
 main = do
-    putStrLn "this"
+    putStrLn "what hue would you like to mix: "
     line <- getLine
-    convert line
-    main
+    let hue = read line :: Float
+    getMixingInstructions hue
+    main -- loop
 
-convert :: String -> IO ()
-convert s = do
-    print getRGB $ (HSV s)
+getMixingInstructions :: Float -> IO ()
+getMixingInstructions h = do
+    print ans
+        where ans = zip c d
+              c = [degreesDiff h (hue col) | col <- (values stock)]
+              d = keys stock
