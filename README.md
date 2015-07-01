@@ -14,36 +14,37 @@ ghci> import Knife
 Create a new colour as RGB, HSV or CMYK
 ```haskell
 ghci> RGB 255 0 0
-RGB 255.0 0.0 0.0
+RGB 255 0 0
 ```
 
 Convert between colour systems
 ```haskell
 ghci> toCMYK $ HSV 0 100 100
-CMYK 0.0 100.0 100.0 0.0
+CMYK 0 100 100 0
 ghci> toHSV (RGB 255 0 0)
-HSV 0.0 100.0 100.0
+HSV 0 100 100
 ```
 
 Palettes can be created automatically from colour harmonies
 ```haskell
 ghci> analogous $ HSV 40 100 100
-[HSV 10.0 100.0 100.0,HSV 40.0 100.0 100.0,HSV 70.0 100.0 100.0]
+[HSV 10 100 100,HSV 40 100 100,HSV 70 100 100]
 ghci> triadic $ HSV 40 100 100
-[HSV 40.0 100.0 100.0,HSV 160.0 100.0 100.0,HSV 280.0 100.0 100.0]
+[HSV 40 100 100,HSV 160 100 100,HSV 280 100 100]
 ```
 
 ```haskell
 ghci> map hue (complementary $ HSV 60 100 100) 
-[60.0,240.0]
+[60,240]
 ghci> map getRGB (analogous $ HSV 0 50 100)
-[(255.0,127.5,191.25),(255.0,127.5,127.5),(255.0,191.25,127.5)]
+[(255,128,191),(255,128,128),(255,191,128)]
 ```
 
 The `stock` associated list comes with a series of common colours and their HSV values. These can be piped directly into any other fuction using the `getStock` function
 ```haskell
 ghci> analogous $ getStock "burnt sienna" 
-[HSV 343.8 65.2 91.4,HSV 13.8 65.2 91.4,HSV 43.8 65.2 91.4]
+[HSV 344 65 91,HSV 14 65 91,HSV 44 65 91]
+
 
 ```
 
