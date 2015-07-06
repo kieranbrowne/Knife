@@ -6,8 +6,7 @@ module Knife
 , hue , saturation , value
 , monochromatic , analogous , complementary
 , splitComplementary, triadic, tetradic
-, decimal, rotate, degreesDiff
-, stock, getStock, find, keys, values
+, stock, getStock
 ) where
 
 import Data.Fixed
@@ -191,31 +190,32 @@ tetradic col1 col2 = colours
 
 -- | Stock Colours
 stock = 
-    [("azure"                 , HSV 0 0 0)
-    ,("burgundy"              , HSV 0 0 0 )
-    ,("burnt sienna"          , HSV 14 65 91 )
-    ,("burnt umber"           , HSV 9  74 54 )
-    ,("cadmium green"         , HSV 0 0 0 )
-    ,("cadmium green pale"    , HSV  0 0 0 )
-    ,("cadmium orange"        , HSV  0 0 0 )
-    ,("cadmium red"           , HSV  0 0 0 )
-    ,("cadmium scarlet"       , HSV  0 0 0 )
-    ,("cadmium yellow medium" , HSV  0 0 0 )
-    ,("cadmium yellow pale"   , HSV  0 0 0 )
-    ,("canary yellow"         , HSV  0 0 0 )
-    ,("dioxazine violet"      , HSV  0 0 0 )
-    ,("mars black"            , HSV  0 0 0 )
-    ,("quindcridone rose"     , HSV  0 0 0 )
-    ,("titanium white"        , HSV  0 0 0 )
-    ,("thalo blue"            , HSV  0 0 0 )
-    ,("thalo green"           , HSV  0 0 0 )
-    ,("ultramarine blue"      , HSV  0 0 0 )
-    ,("venetian red"          , HSV  0 0 0 )
-    ,("wheat"                 , HSV  0 0 0 )
-    ,("white"                 , HSV  0 0 0 )
-    ,("white smoke"           , HSV  0 0 0 )
-    ,("wine"                  , HSV  0 0 0 )
-    ,("yale blue"             , HSV  0 0 0 )
+    [("azure"                 , HSV 210 100 100)
+    ,("burgundy"              , HSV 345 100 50 )
+    ,("burnt sienna"          , HSV 14  65  91 )
+    ,("burnt umber"           , HSV 9   74  54 )
+    ,("cadmium green"         , HSV 126 92  63 )
+    ,("cadmium green pale"    , HSV 97  100 80 )
+    ,("cadmium green deep"    , HSV 120 100 58 )
+    ,("cadmium orange"        , HSV 28  83  89 )
+    ,("cadmium red"           , HSV 346 99  77 )
+    ,("cadmium scarlet"       , HSV 7   68  89 )
+    ,("cadmium yellow medium" , HSV 50  100 96 )
+    ,("cadmium yellow pale"   , HSV 53  100 98 )
+    ,("canary yellow"         , HSV 54  57  96 )
+    ,("dioxazine violet"      , HSV 281 76  26 )
+    ,("mars black"            , HSV 220 19  6  )
+    ,("quindcridone rose"     , HSV 350 80  58 )
+    ,("titanium white"        , HSV 0   3   96 )
+    ,("phthalo blue"          , HSV 1   73  147)
+    ,("phthalo green"         , HSV 180 95  22 )
+    ,("ultramarine blue"      , HSV 251 76  36 )
+    ,("venetian red"          , HSV 356 96  78 )
+    ,("wheat"                 , HSV 39  27  96 )
+    ,("white"                 , HSV 0   0   100)
+    ,("white smoke"           , HSV 0   0   96 )
+    ,("wine"                  , HSV 353 59  45 )
+    ,("yale blue"             , HSV 212 90  57 )
     ]
 
 getStock :: String -> Colour
