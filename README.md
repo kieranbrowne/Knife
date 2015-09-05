@@ -48,7 +48,6 @@ ghci> analogous $ getStock "burnt sienna"
 
 ### Very Basic Example
 `basicExample.hs`
-```haskell```
 Shell command:
 ```
 runhaskell basicExample.hs | ./render.py

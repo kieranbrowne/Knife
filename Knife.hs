@@ -6,7 +6,9 @@ module Knife
 , hue , saturation , value
 , monochromatic , analogous , complementary
 , splitComplementary, triadic, tetradic
+, brilliant , cool
 , stock, getStock
+
 ) where
 
 import Data.Fixed
@@ -134,7 +136,7 @@ rotate :: Int -> Int -> Int
 rotate initial diff = newDegrees
     where newDegrees = (initial + diff) `mod` 360
 
-degreesDiff :: Float -> Float -> Float
+degreesDiff :: Int -> Int -> Int
 degreesDiff a b = minimum d
     where d = map abs ops
           ops = [a-b, a-b-360, a-b+360]
@@ -169,7 +171,10 @@ complementary col = colours
 
 splitComplementary :: Colour -> Palette
 splitComplementary col = colours
-    where colours = []
+    where (h,s,v) = getHSV col
+          compL = HSV (rotate (hue col) 150) s v
+          compR = HSV (rotate (hue col) 210) s v
+          colours = [compL,col,compR]
 
 triadic :: Colour -> Palette
 triadic col = colours
@@ -182,10 +187,29 @@ tetradic :: Colour -> Colour -> Palette
 tetradic col1 col2 = colours
     where colours = complementary col1 ++ complementary col2
 
--- | mod palettes
--- moody :: Palette -> Palette
---moody = []
+-- | palette mods
 
+brilliant :: Palette -> Palette
+-- boost saturation and value
+briliant [] = []
+brilliant colours = map boost colours
+    where boost :: Colour -> Colour
+          boost col = HSV h s' v'
+                where (h,s,v) = getHSV col 
+                      s' = min 100 (s+20)
+                      v' = min 100 (v+20)
+
+cool :: Palette -> Palette
+cool [] = []
+cool colours = map f colours
+    where f :: Colour -> Colour
+          f col = HSV h s' v
+            where (h,s,v) = getHSV col
+                  δ = 20 - ((degreesDiff h 240) `div` 3)
+                  s' = max 0 (min 100 (s+δ))
+                  v' = max 0 (min 100 (v+δ))
+
+-- to do, mod fns: subdued,muted,cool,warm,earthy,dark,bright
 
 
 -- | Stock Colours
