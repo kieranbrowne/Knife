@@ -1,5 +1,5 @@
 module Knife
-( Colour(..)
+( Colour(..), Palette
 , toRGB , toHSV , toCMYK
 , getRGB , getHSV , getCMYK
 , red , green , blue
@@ -8,6 +8,7 @@ module Knife
 , splitComplementary, triadic, tetradic
 , brilliant , cool
 , stock, getStock
+, clojureMap, toClojure
 
 ) where
 
@@ -252,3 +253,10 @@ values map = [v | (k,v) <- map]
 
 find :: (Eq k) => k -> [(k,v)] -> v
 find key xs = snd . head . filter (\(k,v) -> key == k) $ xs
+
+clojureMap :: Colour -> String 
+clojureMap col = "{:r "++show r++" :g "++show g++" :b "++show b++"}" 
+    where (r,g,b) = getRGB(col)
+
+toClojure :: Palette -> String
+toClojure p = "[" ++ (unwords $ map clojureMap p) ++ "]"
