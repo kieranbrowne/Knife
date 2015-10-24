@@ -219,7 +219,7 @@ stock =
     ,("burgundy"              , HSV 345 100 50 )
     ,("burnt sienna"          , HSV 14  65  91 )
     ,("burnt umber"           , HSV 9   74  54 )
-    ,("cadmium green"         , HSV 126 92  63 )
+    ,("cadmium green mid"     , HSV 126 92  63 )
     ,("cadmium green pale"    , HSV 97  100 80 )
     ,("cadmium green deep"    , HSV 120 100 58 )
     ,("cadmium orange"        , HSV 28  83  89 )
@@ -255,8 +255,9 @@ find :: (Eq k) => k -> [(k,v)] -> v
 find key xs = snd . head . filter (\(k,v) -> key == k) $ xs
 
 clojureMap :: Colour -> String 
-clojureMap col = "{:r "++show r++" :g "++show g++" :b "++show b++"}" 
-    where (r,g,b) = getRGB(col)
+clojureMap (RGB r g b) = "{:r "++show r++" :g "++show g++" :b "++show b++"}" 
+clojureMap (HSV h s v) = "{:h "++show h++" :s "++show s++" :v "++show v++"}" 
+clojureMap (CMYK c m y k) = "{:c "++show c++" :m "++show m++" :y "++show y++" :k "++show k++"}" 
 
 toClojure :: Palette -> String
 toClojure p = "[" ++ (unwords $ map clojureMap p) ++ "]"
