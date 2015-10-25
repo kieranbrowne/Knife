@@ -168,7 +168,7 @@ analogous col = colours
 complementary :: Colour -> Palette
 complementary col = colours
     where (h,s,v) = getHSV col
-          comp = HSV (rotate (hue col) 180) s v
+          comp = HSV (rotate h 180) s v
           colours = [col,comp]
 
 splitComplementary :: Colour -> Palette
@@ -233,12 +233,12 @@ stock =
     ,("mars black"            , HSV 220 19  6  )
     ,("quindcridone rose"     , HSV 350 80  58 )
     ,("titanium white"        , HSV 0   3   96 )
-    ,("phthalo blue"          , HSV 1   73  147)
-    ,("phthalo green"         , HSV 180 95  22 )
+    ,("phthalo blue"          , HSV 233 100 54 )
+    ,("phthalo green"         , HSV 150 66  21 )
     ,("ultramarine blue"      , HSV 251 76  36 )
     ,("venetian red"          , HSV 356 96  78 )
     ,("wheat"                 , HSV 39  27  96 )
-    ,("white"                 , HSV 0   0   100)
+    ,("white full"            , HSV 0   0   100)
     ,("white smoke"           , HSV 0   0   96 )
     ,("wine"                  , HSV 353 59  45 )
     ,("yale blue"             , HSV 212 90  57 )

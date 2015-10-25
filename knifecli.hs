@@ -14,7 +14,7 @@ interpret args = format $ map colourmodel $ descriptors $ harmony $ colour
     where colour 
                | any (`elem` arggroups) stockNames = (map snd stock) !! (fromJust $ elemIndex (head $ filter (`elem` arggroups) stockNames) stockNames)
                | otherwise = getStock "wheat"
-               where arggroups = (map (\(a,b)->a++" "++b) $ zip args (tail args)) ++ (map (\(a,b,c)->a++" "++b++" "++c) $ zip3 args (tail args) (tail $ tail args))
+               where arggroups = args ++ (map (\(a,b)->a++" "++b) $ zip args (tail args)) ++ (map (\(a,b,c)->a++" "++b++" "++c) $ zip3 args (tail args) (tail $ tail args))
                      stockNames = (map fst stock)
           harmony  
                | "complementary" `elem` args && "split" `elem` args = splitComplementary
@@ -24,7 +24,8 @@ interpret args = format $ map colourmodel $ descriptors $ harmony $ colour
                -- | "tetradic" `elem` args = tetradic -- this wont work except with two colour inputs
                | otherwise = complementary
           descriptors 
-               | "analogous" `elem` args = cool . brilliant
+               | "bright" `elem` args = brilliant
+               | "cool" `elem` args = cool
                | otherwise = id
           colourmodel
                | "hsv" `elem` args = toHSV
