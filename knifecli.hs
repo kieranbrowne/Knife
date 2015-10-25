@@ -33,6 +33,7 @@ interpret args = format $ map colourmodel $ descriptors $ harmony $ colour
                | otherwise = id
           format 
                | any (`elem` args) ["clj","clojure"] = toClojure
+               | any (`elem` args) ["sass","scss"] = toSASS
                | otherwise = show
 
 

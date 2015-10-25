@@ -9,6 +9,7 @@ module Knife
 , brilliant , cool
 , stock, getStock
 , clojureMap, toClojure
+, toCSS, toSASS
 
 ) where
 
@@ -261,3 +262,10 @@ clojureMap (CMYK c m y k) = "{:c "++show c++" :m "++show m++" :y "++show y++" :k
 
 toClojure :: Palette -> String
 toClojure p = "[" ++ (unwords $ map clojureMap p) ++ "]"
+
+toCSS :: Colour -> String
+toCSS col = "rgb("++show r++","++show g++","++show b++")"
+    where (r,g,b) = getRGB col
+
+toSASS :: Palette -> String
+toSASS p = "$palette: " ++ (unwords $ map toCSS p) ++";"
